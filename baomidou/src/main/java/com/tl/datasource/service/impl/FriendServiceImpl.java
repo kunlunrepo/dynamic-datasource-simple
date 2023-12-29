@@ -6,6 +6,9 @@ import com.tl.datasource.mapper.FriendMapper;
 import com.tl.datasource.service.FriendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.util.List;
 
@@ -29,6 +32,7 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     @DS("master")
+    @Transactional(rollbackFor = Exception.class)
     public void save(Friend friend) {
         friendMapper.save(friend);
     }
